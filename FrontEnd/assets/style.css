@@ -125,6 +125,30 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+.divfiltre {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	padding-top: 21px;
+	margin-bottom: 51px;
+}
+
+.divfiltre p {
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	font-family: 'syne';
+	font-size: 16px;
+	font-weight: 700;
+	padding: 9px 30px;
+	color: #1D6154;
+	cursor: pointer;
+}
+
+.divfiltre p:hover {
+	background-color: #1D6154;
+	color: white;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
