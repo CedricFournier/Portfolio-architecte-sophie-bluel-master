@@ -1,7 +1,3 @@
-/********************************import-photo************************************/
-const importphoto = await fetch("http://localhost:5678/api/works");
-const tabphoto = await importphoto.json();
-
 /********************************ajout-filtre************************************/
 let sectionprojet = document.querySelector("#portfolio h2");
 let pfiltre = `
@@ -14,18 +10,11 @@ let pfiltre = `
     `
     sectionprojet.insertAdjacentHTML("afterend", pfiltre)
 
-/********************************creation-gallery************************************/
-let i = 0;
-let divgallery = document.querySelector(".gallery");
-for (i ; i < tabphoto.length; i++) {
-    let photo = `
-        <figure>
-            <img src="${tabphoto[i].imageUrl}" alt="${tabphoto[i].title}"></img>
-            <figcaption>${tabphoto[i].title}</figcaption>
-        </figure>
-    `
-    divgallery.innerHTML += photo;
-}
+/********************************import-photo************************************/
+const importphoto = await fetch("http://localhost:5678/api/works");
+let tabphotos = await importphoto.json();
+
+creategallery(tabphotos);
 
 /********************************fonction-filtrer************************************/
 const ftous = document.getElementById("filtretous");
@@ -34,27 +23,42 @@ const fappart = document.getElementById("filtreappart");
 const fhresto = document.getElementById("filtrehresto");
 
 ftous.addEventListener("click", () => {
-	
+	creategallery(tabphotos);
 });
 
 fobjet.addEventListener("click", () => {
-	let listphoto = tabphoto.filter(function(itemphoto) {
+	let tabobjet = tabphotos.filter(function(itemphoto) {
         return itemphoto.category.name == "Objets";
-    });
-    
+    })
+    creategallery(tabobjet);
 });
 
 fappart.addEventListener("click", () => {
-	let listphoto = tabphoto.filter(function(itemphoto) {
+	let tabappart = tabphotos.filter(function(itemphoto) {
         return itemphoto.category.name == "Appartements";
     });
-    
+    creategallery(tabappart);
 });
 
 fhresto.addEventListener("click", () => {
-	let listphoto = tabphoto.filter(function(itemphoto) {
+	let tabhresto = tabphotos.filter(function(itemphoto) {
         return itemphoto.category.name == "Hotels & restaurants";
     });
-    
+    creategallery(tabhresto);
 });
 
+/********************************creation-gallery************************************/
+function creategallery (tabphotos) {
+    let i = 0;
+    let divgallery = document.querySelector(".gallery");
+    divgallery.innerHTML = "";
+    for (i ; i < tabphotos.length; i++) {
+        let photo = `
+            <figure>
+                <img src="${tabphotos[i].imageUrl}" alt="${tabphotos[i].title}"></img>
+                <figcaption>${tabphotos[i].title}</figcaption>
+            </figure>
+        `
+        divgallery.innerHTML += photo;
+    }
+}
