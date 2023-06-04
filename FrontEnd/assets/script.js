@@ -8,7 +8,7 @@ let pfiltre = `
         <p id="filtrehresto">Hôtels & restaurants</p>
     </div>
     `
-    sectionprojet.insertAdjacentHTML("afterend", pfiltre)
+sectionprojet.insertAdjacentHTML("afterend", pfiltre)
 
 /********************************import-photo************************************/
 const importphoto = await fetch("http://localhost:5678/api/works");

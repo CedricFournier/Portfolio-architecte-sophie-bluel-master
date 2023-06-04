@@ -258,3 +258,10 @@ footer nav ul {
 	border: none;
 	background-color: white;
 }
+
+#errormsg {
+	color: red;
+	margin-bottom: 23px;
+	font-size: 15px;
+	font-weight: 600;
+}
