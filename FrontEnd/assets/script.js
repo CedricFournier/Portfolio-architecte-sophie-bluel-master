@@ -1,19 +1,13 @@
-/********************************ajout-filtre************************************/
-let sectionprojet = document.querySelector("#portfolio h2");
-let pfiltre = `
-    <div class="divfiltre">
-        <p id="filtretous">Tous</p>
-        <p id="filtreobjet">Objets</p>
-        <p id="filtreappart">Appartements</p>
-        <p id="filtrehresto">Hôtels & restaurants</p>
-    </div>
-    `
-sectionprojet.insertAdjacentHTML("afterend", pfiltre)
+import { importphoto } from "./data.js";
+import { createfilter, creategallery, createheader, createbtnmodifier, logout, removefilter } from "./html.js";
 
-/********************************import-photo************************************/
-const importphoto = await fetch("http://localhost:5678/api/works");
-let tabphotos = await importphoto.json();
+createfilter();
 
+importphoto();
+
+/******************************import-local-photo**********************/
+let localphoto = window.localStorage.getItem('localphoto');
+let tabphotos = JSON.parse(localphoto);
 creategallery(tabphotos);
 
 /********************************fonction-filtrer************************************/
@@ -47,18 +41,24 @@ fhresto.addEventListener("click", () => {
     creategallery(tabhresto);
 });
 
-/********************************creation-gallery************************************/
-function creategallery (tabphotos) {
-    let i = 0;
-    let divgallery = document.querySelector(".gallery");
-    divgallery.innerHTML = "";
-    for (i ; i < tabphotos.length; i++) {
-        let photo = `
-            <figure>
-                <img src="${tabphotos[i].imageUrl}" alt="${tabphotos[i].title}"></img>
-                <figcaption>${tabphotos[i].title}</figcaption>
-            </figure>
-        `
-        divgallery.innerHTML += photo;
+const btnlog = document.getElementById("btnlog");
+btnlog.addEventListener("click", () => {
+    if (authtoken !== null) {
+        logout();
+        createfilter();
     }
+    else {
+        window.location.href="./loginpage.html"
+    }
+});
+
+/**************************verification-user******************************/
+let authtoken = window.localStorage.getItem('authtoken');
+if (authtoken !== null) {
+    createheader()
+    createbtnmodifier()
+    removefilter()
+}
+else {
+
 }
