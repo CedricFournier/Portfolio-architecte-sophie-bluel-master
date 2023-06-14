@@ -1,5 +1,5 @@
-import { importcategories, importphoto } from "./data.js";
-import { createfilter, creategallery, createheader, createbtnmodifier, logout, removefilter, createmodal, closemodal, cmodifiergallery } from "./html.js";
+import { deleteimg, importcategories, importphoto } from "./data.js";
+import { createfilter, creategallery, createheader, createbtnmodifier, logout, removefilter, createmodal, closemodal, cmodifiergallery, addimg } from "./html.js";
 
 importcategories();
 
@@ -47,7 +47,7 @@ fhresto.addEventListener("click", () => {
 });
 
 /**************************verification-user******************************/
-let authtoken = window.localStorage.getItem('authtoken');
+let authtoken = window.sessionStorage.getItem('authtoken');
 const btnlog = document.getElementById("btnlog");
 btnlog.addEventListener("click", () => {
     if (authtoken !== null) {
@@ -69,11 +69,12 @@ if (authtoken !== null) {
 /**************************open-close-modal******************************/
 const btnmodifier2 = document.querySelector(".divmodifier2");
 btnmodifier2.addEventListener("click", () => {
-    document.querySelector(".aside-modal").style.visibility = "visible";
+    document.querySelector(".aside-modal").style.display = "flex";
     cmodifiergallery(tabphotos);
+    clickcorbeille();
 });
 
-const btnclose = document.querySelectorAll("#closemodal");
+const btnclose = document.querySelectorAll(".closemodal");
 let i = 0;
 for (i ; i < btnclose.length; i++) {
     let element = btnclose[i];
@@ -81,3 +82,48 @@ for (i ; i < btnclose.length; i++) {
         closemodal();
     });
 };
+
+const divmodal = document.querySelector(".div-modal");
+divmodal.addEventListener("click", (event) => {
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+});
+
+/**************************delete-element-modal******************************/
+function clickcorbeille () {
+    let i = 1;
+    for (i ; i < tabphotos.length; i++) {
+        let imgphoto = document.querySelectorAll(".icon-corbeille");
+        imgphoto.forEach(element => {
+            element.addEventListener("click", () => {
+                let idimg = element.getAttribute("id");
+                
+                console.log(idimg)
+            })
+        });
+    };
+};
+
+/**************************ajout-element-modal******************************/
+const btnajouter = document.getElementById("btn-ajouter");
+btnajouter.addEventListener("click", () => {
+    addimg();
+});
+
+const btnreturn = document.querySelector(".fa-arrow-left-long");
+btnreturn.addEventListener("click", () => {
+    const modalbody = document.querySelector(".modalbody");
+    const modaladd = document.querySelector(".modaladd");
+    const leftreturn = document.querySelector(".fa-arrow-left-long");
+    modalbody.style.display = "flex";
+    modaladd.style.display = "none";
+    leftreturn.style.display = "none";
+});
+
+let image = document.getElementById("previewimg");
+ajoutimg.onchange = () => {
+    const [file] = ajoutimg.files
+    if (file) {
+      previewimg.src = URL.createObjectURL(file)
+    }
+  }

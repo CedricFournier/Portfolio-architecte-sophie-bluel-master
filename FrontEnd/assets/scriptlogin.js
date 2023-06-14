@@ -16,10 +16,10 @@ async function authentification (jsonlogin) {
         headers: { "Content-Type": "application/json" },
         body: jsonlogin
     });
-    if (rlogin.ok === true) {
+    if (rlogin.status === 200) {
         const rtoken = await rlogin.json();
         const token = JSON.stringify(rtoken);
-        window.localStorage.setItem("authtoken", token);
+        window.sessionStorage.setItem("authtoken", token);
         window.location.href="./index.html";
     }
     else {

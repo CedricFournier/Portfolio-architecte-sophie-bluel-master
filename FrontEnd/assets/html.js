@@ -78,7 +78,7 @@ export function createbtnmodifier () {
 }
 
 export function logout () {
-    window.localStorage.removeItem('authtoken');
+    window.sessionStorage.removeItem('authtoken');
     location.reload();
 }
 
@@ -86,16 +86,40 @@ export function logout () {
 export function createmodal () {
     const divbody = document.querySelector("body");
     let asideb = `
-    <aside id="closemodal" class="aside-modal">
+    <aside class="aside-modal closemodal">
         <section class="div-modal">
-            <div id="closemodal" class="croix-modal">
-                <i class="fa-solid fa-xmark"></i>
+            <div class="leftclose">
+                <i class="fa-solid fa-arrow-left-long"></i>
+                <i class="fa-solid fa-xmark closemodal"></i>
             </div>
-            <h1 class="titre-modal">Galerie photo</h1>
-            <div class="modal-gallery">
+            <div class="modalbody">
+                <h2 class="titre-modal">Galerie photo</h2>
+                <div class="modal-gallery"></div>
+                <button id="btn-ajouter">Ajouter une photo</button>
+                <button id="btn-clear">Supprimer la galerie</button>
             </div>
-            <button id="btn-ajouter">Ajouter une photo</button>
-            <button id="btn-clear">Supprimer la galerie</button>
+            <div class="modaladd">
+                <h2 class="titre-modaladd">Ajout photo</h2>
+                <form id="formaddimg" class="formimg" enctype="multipart/form-data" method="post">
+                    <div class="divajoutphoto">
+                        <i class="fa-regular fa-image"></i>
+                        <img src="#" alt="" id="previewimg" >
+                        <input type="file" id="ajoutimg" name="ajoutimg" accept="image/png, image/jpeg">
+                        <label for="ajoutimg" class="labelimg">+ Ajouter photo</label>    
+                        <p class="padd">jpg, png : 4mo max</p>
+                    </div>
+                    <label for="titre" class="titleajout">Titre</label>
+                    <input class="inputarea" type="text" id="titre" name="titre">
+                    <label for="categorie" class="titlecategorie">Catégorie</label>
+                    <select class="menuderoulant" name="categorie" id="categorie">
+                        <option value="4">1</option>
+                        <option value="5">2</option>
+                        <option value="6">3</option>
+                    </select>
+                    <hr class="line">
+                    <input id="btnajoutimg" type="submit" value="Valider">
+                </form>
+            </div>
         </section>
     </aside>
         `
@@ -104,7 +128,7 @@ export function createmodal () {
 
 export function closemodal () {
     const asideb = document.querySelector(".aside-modal");
-    document.querySelector(".aside-modal").style.visibility = "hidden";
+    document.querySelector(".aside-modal").style.display = "none";
 }
 
 export function cmodifiergallery (tabphotos) {
@@ -113,17 +137,29 @@ export function cmodifiergallery (tabphotos) {
     modalgallery.innerHTML = "";
     for (i ; i < tabphotos.length; i++) {
         let photo = `
-        <figure class="figure-modal">
-            <button class="icon" id="icon-direction">
+        <figure id="figure-modal" class="figure-modal">
+            <button class="icon icon-direction">
                 <i class="fa-solid fa-arrows-up-down-left-right fa-xs"></i>
             </button>
-            <button class="icon" id="icon-corbeille">
+            <button class="icon icon-corbeille" id="${tabphotos[i].id}">
             <i class="fa-solid fa-trash-can fa-xs"></i>
             </button>
             <img src="${tabphotos[i].imageUrl}" alt="${tabphotos[i].title}"></img>
             <button>éditer</button>
         </figure>
         `
-        modalgallery.innerHTML += photo;
-    }
-}
+    modalgallery.innerHTML += photo;
+    };
+};
+
+/**************************html-modal-ajouter******************************/
+export function addimg () {
+    const modalbody = document.querySelector(".modalbody");
+    const modaladd = document.querySelector(".modaladd");
+    const leftreturn = document.querySelector(".fa-arrow-left-long");
+    modalbody.style.display = "none";
+    modaladd.style.display = "flex";
+    leftreturn.style.display = "block";
+};
+
+
