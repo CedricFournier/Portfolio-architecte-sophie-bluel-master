@@ -97,8 +97,7 @@ function clickcorbeille () {
         imgphoto.forEach(element => {
             element.addEventListener("click", () => {
                 let idimg = element.getAttribute("id");
-                
-                console.log(idimg)
+                deleteimg(idimg);
             })
         });
     };
@@ -120,10 +119,12 @@ btnreturn.addEventListener("click", () => {
     leftreturn.style.display = "none";
 });
 
-let image = document.getElementById("previewimg");
-ajoutimg.onchange = () => {
+const previewimg = document.getElementById("previewimg");
+const ajoutimg = document.getElementById("ajoutimg");
+ajoutimg.addEventListener("change", () => {
+    previewimg.style.display = "block";
     const [file] = ajoutimg.files
     if (file) {
       previewimg.src = URL.createObjectURL(file)
     }
-  }
+});

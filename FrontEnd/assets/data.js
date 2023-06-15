@@ -15,9 +15,11 @@ export async function importphoto () {
 export async function deleteimg (idimg) {
     let urldelete = "http://localhost:5678/api/works/" + idimg;
     console.log(urldelete)
+    let authtoken = window.sessionStorage.getItem("authtoken");
+    let autoken = JSON.parse(authtoken);
     let reponseimg = await fetch(urldelete, {
         method: "DELETE",
-        headers: { "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4NjYwMDc1NywiZXhwIjoxNjg2Njg3MTU3fQ.ioEdIEbHiPIGNEUqOr9frR2AVGbQM78XB32cUju6Ds0' }
+        headers: { "Authorization": 'Bearer ' + autoken.token }
     });
     console.log(reponseimg)
 };
