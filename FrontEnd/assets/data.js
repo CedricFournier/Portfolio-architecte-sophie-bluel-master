@@ -33,4 +33,6 @@ export async function ajoutphoto () {
         body: formData
     });
    console.log(reponseajout)
+   const r = await reponseajout.json();
+   console.log(r)
 }; 
