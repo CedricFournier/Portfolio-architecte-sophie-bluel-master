@@ -27,12 +27,11 @@ export async function deleteimg (idimg) {
 export async function ajoutphoto () {
     let myForm = document.getElementById('formaddimg');
     let formData = new FormData(myForm);
+    console.log(formData)
     const reponseajout = await fetch('http://localhost:5678/api/works', {
         method: "POST",
         headers: { "Authorization": 'Bearer ' + autoken.token },
         body: formData
     });
    console.log(reponseajout)
-   const r = await reponseajout.json();
-   console.log(r)
 }; 

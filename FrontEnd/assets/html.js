@@ -152,7 +152,7 @@ function menucategory () {
     let i = 0;
     for (i ; i < tabcategories.length; i++) {
         let mfiltre = `
-            <option value=i>${tabcategories[i].name}</option>
+            <option value="${i+1}">${tabcategories[i].name}</option>
             `
         menuderoulant.insertAdjacentHTML("beforeend", mfiltre);
     };
