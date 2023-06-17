@@ -241,11 +241,15 @@ footer nav ul {
 }
 
 .inputarea {
-	margin-bottom: 30px;
 	border: none;
 	height: 51px;
-	width: 379px;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding-left: 15px;
+}
+
+.arealogin {
+	margin-bottom: 30px;
+	width: 379px;
 	font-size: 18px;
 }
 
@@ -361,6 +365,7 @@ button {
 }
 
 .modalbody {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -408,11 +413,16 @@ button {
 }
 
 .icon-direction {
+	display: none;
 	right: 25px;
 }
 
 .modal-gallery img {
 	width: 100%;
+}
+
+.btnedit {
+	background: none;
 }
 
 #btn-ajouter {
@@ -430,6 +440,7 @@ button {
 	font-family: 'Syne';
 	font-weight: 400;
 	font-size: 14px;
+	background: none;
 }
 
 .modaladd {
@@ -493,7 +504,7 @@ button {
 	width: 100%;
 }
 
-#ajoutimg {
+#image {
 	position: absolute;
 	display: none;
 }
@@ -510,9 +521,19 @@ button {
 	margin-bottom: 10px;
 }
 
+.areamodal {
+	font-size: 14px;
+	margin-bottom: 21px;
+}
+
 .menuderoulant {
 	margin-bottom: 47px;
 	border: none;
+	height: 51px;
+	background-color: white;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	font-size: 14px;
+	padding: 0 15px 0 15px;
 }
 
 .line {
@@ -521,9 +542,11 @@ button {
 }
 
 #btnajoutimg {
+	text-align: center;
 	margin: 32px auto 7px;
 	background-color: #A7A7A7;
 	height: 36px;
 	width: 237px;
 	border: none;
+	border-radius: 60px;
 }

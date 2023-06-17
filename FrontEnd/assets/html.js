@@ -14,8 +14,8 @@ export function createfilter (tabcategories) {
             <p id="${"categorie" + tabcategories[i].id}">${tabcategories[i].name}</p>
             `
         btnfiltre.insertAdjacentHTML("beforeend", pfiltre);
-    }
-}
+    };
+};
 
 export function removefilter () {
     const divfiltre = document.querySelector(".divfiltre");
@@ -23,7 +23,7 @@ export function removefilter () {
     divfiltre.remove();
     gallery.style.marginTop = "60px";
 
-}
+};
 
 /********************************creation-gallery************************************/
 export function creategallery (tabphotos) {
@@ -38,9 +38,9 @@ export function creategallery (tabphotos) {
             </figure>
         `
         divgallery.innerHTML += photo;
-    }
-}
-/********************************user-log************************************/
+    };
+};
+/********************************user-login************************************/
 /**************************header-login**************************/
 export function createheader () {
     const heditor = document.querySelector("body");
@@ -55,7 +55,7 @@ export function createheader () {
 
     const btnlog = document.getElementById("btnlog");
     btnlog.innerText = "Logout";
-}
+};
 
 /*******************************ajout-bouton-modifier************************************/
 export function createbtnmodifier () {
@@ -75,12 +75,12 @@ export function createbtnmodifier () {
         `    
     sectionintro.insertAdjacentHTML("afterend", iconmodifier1);
     divmodifier.insertAdjacentHTML("beforeend", iconmodifier2);
-}
+};
 
 export function logout () {
     window.sessionStorage.removeItem('authtoken');
     location.reload();
-}
+};
 
 /**************************html-modal******************************/
 export function createmodal () {
@@ -104,32 +104,25 @@ export function createmodal () {
                     <div class="divajoutphoto">
                         <i class="fa-regular fa-image"></i>
                         <img src="#" alt="" id="previewimg" >
-                        <input type="file" id="ajoutimg" name="ajoutimg" accept="image/png, image/jpeg">
-                        <label for="ajoutimg" class="labelimg">+ Ajouter photo</label>    
+                        <input type="file" id="image" name="image" accept="image/png, image/jpeg">
+                        <label for="image" class="labelimg">+ Ajouter photo</label>    
                         <p class="padd">jpg, png : 4mo max</p>
                     </div>
-                    <label for="titre" class="titleajout">Titre</label>
-                    <input class="inputarea" type="text" id="titre" name="titre">
+                    <label for="title" class="titleajout">Titre</label>
+                    <input class="inputarea areamodal" type="text" id="title" name="title">
                     <label for="categorie" class="titlecategorie">Catégorie</label>
-                    <select class="menuderoulant" name="categorie" id="categorie">
-                        <option value="4">1</option>
-                        <option value="5">2</option>
-                        <option value="6">3</option>
+                    <select class="menuderoulant" name="category" id="category">
                     </select>
                     <hr class="line">
-                    <input id="btnajoutimg" type="submit" value="Valider">
+                    <input id="btnajoutimg" type="bouton" value="Valider">
                 </form>
             </div>
         </section>
     </aside>
         `
     divbody.insertAdjacentHTML("afterbegin", asideb);
-}
-
-export function closemodal () {
-    const asideb = document.querySelector(".aside-modal");
-    document.querySelector(".aside-modal").style.display = "none";
-}
+    menucategory();
+};
 
 export function cmodifiergallery (tabphotos) {
     let i = 0;
@@ -145,11 +138,29 @@ export function cmodifiergallery (tabphotos) {
             <i class="fa-solid fa-trash-can fa-xs"></i>
             </button>
             <img src="${tabphotos[i].imageUrl}" alt="${tabphotos[i].title}"></img>
-            <button>éditer</button>
+            <button class="btnedit">éditer</button>
         </figure>
         `
     modalgallery.innerHTML += photo;
     };
+};
+
+function menucategory () {
+    let localcategories = window.localStorage.getItem('localcategories');
+    let tabcategories = JSON.parse(localcategories);
+    const menuderoulant = document.querySelector(".menuderoulant");   
+    let i = 0;
+    for (i ; i < tabcategories.length; i++) {
+        let mfiltre = `
+            <option value=i>${tabcategories[i].name}</option>
+            `
+        menuderoulant.insertAdjacentHTML("beforeend", mfiltre);
+    };
+};
+
+export function closemodal () {
+    const asideb = document.querySelector(".aside-modal");
+    document.querySelector(".aside-modal").style.display = "none";
 };
 
 /**************************html-modal-ajouter******************************/
@@ -161,5 +172,3 @@ export function addimg () {
     modaladd.style.display = "flex";
     leftreturn.style.display = "block";
 };
-
-

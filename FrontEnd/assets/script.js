@@ -1,11 +1,11 @@
-import { deleteimg, importcategories, importphoto } from "./data.js";
+import { ajoutphoto, deleteimg, importcategories, importphoto } from "./data.js";
 import { createfilter, creategallery, createheader, createbtnmodifier, logout, removefilter, createmodal, closemodal, cmodifiergallery, addimg } from "./html.js";
 
 importcategories();
 
 importphoto();
 
-/******************************import-local-photo**********************/
+/******************************import-local-category**********************/
 let localcategories = window.localStorage.getItem('localcategories');
 let tabcategories = JSON.parse(localcategories);
 createfilter(tabcategories);
@@ -98,29 +98,25 @@ function clickcorbeille () {
             element.addEventListener("click", () => {
                 let idimg = element.getAttribute("id");
                 deleteimg(idimg);
-            })
+            });
         });
     };
 };
 
 /**************************ajout-element-modal******************************/
 const btnajouter = document.getElementById("btn-ajouter");
-btnajouter.addEventListener("click", () => {
+btnajouter.addEventListener("click", (event) => {
+    event.preventDefault();
     addimg();
 });
 
 const btnreturn = document.querySelector(".fa-arrow-left-long");
 btnreturn.addEventListener("click", () => {
-    const modalbody = document.querySelector(".modalbody");
-    const modaladd = document.querySelector(".modaladd");
-    const leftreturn = document.querySelector(".fa-arrow-left-long");
-    modalbody.style.display = "flex";
-    modaladd.style.display = "none";
-    leftreturn.style.display = "none";
+    gallerymodal();
 });
 
 const previewimg = document.getElementById("previewimg");
-const ajoutimg = document.getElementById("ajoutimg");
+const ajoutimg = document.getElementById("image");
 ajoutimg.addEventListener("change", () => {
     previewimg.style.display = "block";
     const [file] = ajoutimg.files
@@ -128,3 +124,18 @@ ajoutimg.addEventListener("change", () => {
       previewimg.src = URL.createObjectURL(file)
     }
 });
+
+const btnajoutimg = document.getElementById("btnajoutimg");
+btnajoutimg.addEventListener("click", (event) => {
+    event.preventDefault();
+    ajoutphoto();
+});
+
+function gallerymodal () {
+    const modalbody = document.querySelector(".modalbody");
+    const modaladd = document.querySelector(".modaladd");
+    const leftreturn = document.querySelector(".fa-arrow-left-long");
+    modalbody.style.display = "flex";
+    modaladd.style.display = "none";
+    leftreturn.style.display = "none";
+};
