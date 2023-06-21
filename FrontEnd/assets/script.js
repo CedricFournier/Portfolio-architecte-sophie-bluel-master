@@ -117,7 +117,7 @@ function clickcorbeille () {
 const btnajouter = document.getElementById("btn-ajouter");
 btnajouter.addEventListener("click", (event) => {
     addimg();
-    verif();
+    
 });
 
 const btnreturn = document.querySelector(".fa-arrow-left-long");
@@ -156,27 +156,33 @@ title.addEventListener("input", (event) => {
 
 const category = document.getElementById("category")
 category.addEventListener("change", (event) => {
-    verif();
+   verif();
+});
+
+btnajoutimg.addEventListener("click", (event) => {
+    event.preventDefault();
+    uploadimg();
 });
 
 const msgerrchamps = document.querySelector(".msgerrchamps");
 function verif () {
     if (image.value !== "" && title.value !== "" && category.value !== "") {
         btnajoutimg.style.backgroundColor = "#1D6154";
-        msgerrchamps.style.display = "none";
-        btnajoutimg.addEventListener("click", (event) => {
-            ajoutphoto();
-        });
+    }
+    else {
+        btnajoutimg.style.backgroundColor = "#A7A7A7";
     };
-    msgerrorinput();
 };
 
-function msgerrorinput () {
-    btnajoutimg.addEventListener("click", (event) => {
-        btnajoutimg.style.backgroundColor = "#A7A7A7";
+function uploadimg () {
+    if (image.value === "" || title.value === "" || category.value === "") {
         msgerrchamps.style.display = "block";
-    }); 
-}
+    }
+    else {
+        msgerrchamps.style.display = "none";
+        ajoutphoto();
+    }
+};
 
 export function addsucess () {
     previewimg.style.display = "none";

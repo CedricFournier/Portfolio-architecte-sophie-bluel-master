@@ -125,7 +125,7 @@ export function createmodal () {
                     </select>
                     <hr class="line">
                     <p class="msgerrchamps">Veuillez remplir tous les champs</p>
-                    <input id="btnajoutimg" type="bouton" value="Valider">
+                    <input id="btnajoutimg" type="button" value="Valider">
                 </form>
             </div>
         </section>
