@@ -1,3 +1,5 @@
+import { addsucess } from "./script.js";
+
 let authtoken = window.sessionStorage.getItem("authtoken");
 let autoken = JSON.parse(authtoken);
 
@@ -15,23 +17,36 @@ export async function importphoto () {
     window.localStorage.setItem("localphoto", localphoto);
 };
 
-export async function deleteimg (idimg) {
+export async function deleteimg (idimg, tabindex) {
     let urldelete = "http://localhost:5678/api/works/" + idimg;
     console.log(urldelete)
     let reponseimg = await fetch(urldelete, {
         method: "DELETE",
         headers: { "Authorization": 'Bearer ' + autoken.token }
     });
+    if (reponseimg.ok) {
+        importphoto();
+        const idfigure = "f" + tabindex;
+        document.getElementById(idfigure).style.display = "none";
+    }
+    else {
+        console.log(reponseimg);
+    }
 };
 
 export async function ajoutphoto () {
     let myForm = document.getElementById('formaddimg');
     let formData = new FormData(myForm);
-    console.log(formData)
     const reponseajout = await fetch('http://localhost:5678/api/works', {
         method: "POST",
         headers: { "Authorization": 'Bearer ' + autoken.token },
         body: formData
     });
-   console.log(reponseajout)
-}; 
+    if (reponseajout.ok) {
+        importphoto();
+        addsucess();
+    }
+    else {
+        console.log(reponseajout);
+    }
+};

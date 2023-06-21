@@ -40,6 +40,11 @@ export function creategallery (tabphotos) {
         divgallery.innerHTML += photo;
     };
 };
+
+
+
+
+
 /********************************user-login************************************/
 /**************************header-login**************************/
 export function createheader () {
@@ -57,7 +62,7 @@ export function createheader () {
     btnlog.innerText = "Logout";
 };
 
-/*******************************ajout-bouton-modifier************************************/
+/***************************ajout-bouton-modifier********************************/
 export function createbtnmodifier () {
     const sectionintro = document.querySelector(".imgperso");
     const divmodifier =  document.querySelector(".divprojeth2");
@@ -81,6 +86,10 @@ export function logout () {
     window.sessionStorage.removeItem('authtoken');
     location.reload();
 };
+
+
+
+
 
 /**************************html-modal******************************/
 export function createmodal () {
@@ -110,10 +119,12 @@ export function createmodal () {
                     </div>
                     <label for="title" class="titleajout">Titre</label>
                     <input class="inputarea areamodal" type="text" id="title" name="title">
-                    <label for="categorie" class="titlecategorie">Catégorie</label>
+                    <label for="category" class="titlecategorie">Catégorie</label>
                     <select class="menuderoulant" name="category" id="category">
+                        <option value=""></option>
                     </select>
                     <hr class="line">
+                    <p class="msgerrchamps">Veuillez remplir tous les champs</p>
                     <input id="btnajoutimg" type="bouton" value="Valider">
                 </form>
             </div>
@@ -130,7 +141,7 @@ export function cmodifiergallery (tabphotos) {
     modalgallery.innerHTML = "";
     for (i ; i < tabphotos.length; i++) {
         let photo = `
-        <figure id="figure-modal" class="figure-modal">
+        <figure id="f${i}" class="figure-modal">
             <button class="icon icon-direction">
                 <i class="fa-solid fa-arrows-up-down-left-right fa-xs"></i>
             </button>
@@ -148,13 +159,13 @@ export function cmodifiergallery (tabphotos) {
 function menucategory () {
     let localcategories = window.localStorage.getItem('localcategories');
     let tabcategories = JSON.parse(localcategories);
-    const menuderoulant = document.querySelector(".menuderoulant");   
+    const menuderoulant = document.getElementById("category");   
     let i = 0;
     for (i ; i < tabcategories.length; i++) {
         let mfiltre = `
             <option value="${i+1}">${tabcategories[i].name}</option>
             `
-        menuderoulant.insertAdjacentHTML("beforeend", mfiltre);
+        menuderoulant.insertAdjacentHTML("afterbegin", mfiltre);
     };
 };
 

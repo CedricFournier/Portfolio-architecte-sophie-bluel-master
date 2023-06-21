@@ -433,6 +433,7 @@ button {
 	font-family: 'Syne';
 	margin: 38px 0 23px;
 	height: 36px;
+	cursor: pointer;
 }
 
 #btn-clear {
@@ -494,6 +495,7 @@ button {
 	border-radius: 50px;
 	width: 173px;
 	height: 36px;
+	cursor: pointer;
 }
 
 #previewimg {
@@ -541,6 +543,14 @@ button {
 	width: 100%;
 }
 
+.msgerrchamps {
+	display: none;
+	color: red;
+	margin: 20px auto 0 auto;
+	font-size: 15px;
+	font-weight: 600;
+}
+
 #btnajoutimg {
 	text-align: center;
 	margin: 32px auto 7px;
@@ -549,4 +559,6 @@ button {
 	width: 237px;
 	border: none;
 	border-radius: 60px;
+	color: white;
+	cursor: pointer;
 }

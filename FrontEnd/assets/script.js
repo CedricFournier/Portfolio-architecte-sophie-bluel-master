@@ -11,8 +11,15 @@ let tabcategories = JSON.parse(localcategories);
 createfilter(tabcategories);
 
 /******************************import-local-photo**********************/
-let localphoto = window.localStorage.getItem('localphoto');
-let tabphotos = JSON.parse(localphoto);
+
+
+export function localphoto () {
+    let localphoto = window.localStorage.getItem('localphoto');
+    return JSON.parse(localphoto);
+};
+
+let tabphotos = localphoto();
+
 creategallery(tabphotos);
 
 /********************************fonction-filtrer************************************/
@@ -80,6 +87,7 @@ for (i ; i < btnclose.length; i++) {
     let element = btnclose[i];
     element.addEventListener("click", () => {
         closemodal();
+        location.reload();
     });
 };
 
@@ -91,23 +99,25 @@ divmodal.addEventListener("click", (event) => {
 
 /**************************delete-element-modal******************************/
 function clickcorbeille () {
-    let i = 1;
-    for (i ; i < tabphotos.length; i++) {
-        let imgphoto = document.querySelectorAll(".icon-corbeille");
-        imgphoto.forEach(element => {
-            element.addEventListener("click", () => {
-                let idimg = element.getAttribute("id");
-                deleteimg(idimg);
-            });
+    let imgphoto = document.querySelectorAll(".icon-corbeille");
+    imgphoto.forEach(element => {
+        element.addEventListener("click", () => {
+            let idimg = element.getAttribute("id");
+            let i = 0
+            while (tabphotos[i].id < idimg) {
+            i++
+            }
+            let tabindex = i;
+            deleteimg(idimg, tabindex);
         });
-    };
+    });
 };
 
 /**************************ajout-element-modal******************************/
 const btnajouter = document.getElementById("btn-ajouter");
 btnajouter.addEventListener("click", (event) => {
-    event.preventDefault();
     addimg();
+    verif();
 });
 
 const btnreturn = document.querySelector(".fa-arrow-left-long");
@@ -116,26 +126,62 @@ btnreturn.addEventListener("click", () => {
 });
 
 const previewimg = document.getElementById("previewimg");
-const ajoutimg = document.getElementById("image");
-ajoutimg.addEventListener("change", () => {
+const image = document.getElementById("image");
+const labelimg = document.querySelector(".labelimg");
+image.addEventListener("change", () => {
     previewimg.style.display = "block";
-    const [file] = ajoutimg.files
+    const [file] = image.files
     if (file) {
-      previewimg.src = URL.createObjectURL(file)
+        labelimg.style.display = "none";
+        previewimg.src = URL.createObjectURL(file);
+        verif();
     }
-});
-
-const btnajoutimg = document.getElementById("btnajoutimg");
-btnajoutimg.addEventListener("click", (event) => {
-    event.preventDefault();
-    ajoutphoto();
 });
 
 function gallerymodal () {
     const modalbody = document.querySelector(".modalbody");
     const modaladd = document.querySelector(".modaladd");
     const leftreturn = document.querySelector(".fa-arrow-left-long");
+    let tabphotos = localphoto();
+    cmodifiergallery(tabphotos);
     modalbody.style.display = "flex";
     modaladd.style.display = "none";
     leftreturn.style.display = "none";
+};
+
+const title = document.getElementById("title");
+title.addEventListener("input", (event) => {
+    verif();
+});
+
+const category = document.getElementById("category")
+category.addEventListener("change", (event) => {
+    verif();
+});
+
+const msgerrchamps = document.querySelector(".msgerrchamps");
+function verif () {
+    if (image.value !== "" && title.value !== "" && category.value !== "") {
+        btnajoutimg.style.backgroundColor = "#1D6154";
+        msgerrchamps.style.display = "none";
+        btnajoutimg.addEventListener("click", (event) => {
+            ajoutphoto();
+        });
+    };
+    msgerrorinput();
+};
+
+function msgerrorinput () {
+    btnajoutimg.addEventListener("click", (event) => {
+        btnajoutimg.style.backgroundColor = "#A7A7A7";
+        msgerrchamps.style.display = "block";
+    }); 
+}
+
+export function addsucess () {
+    previewimg.style.display = "none";
+    labelimg.style.display = "flex";
+    title.value = "";
+    category.value = "";
+    btnajoutimg.style.backgroundColor = "#A7A7A7";
 };
