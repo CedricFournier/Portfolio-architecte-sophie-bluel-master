@@ -77,6 +77,7 @@ if (authtoken !== null) {
 const btnmodifier2 = document.querySelector(".divmodifier2");
 btnmodifier2.addEventListener("click", () => {
     document.querySelector(".aside-modal").style.display = "flex";
+    let tabphotos = localphoto();
     cmodifiergallery(tabphotos);
     clickcorbeille();
 });
@@ -85,9 +86,11 @@ const btnclose = document.querySelectorAll(".closemodal");
 let i = 0;
 for (i ; i < btnclose.length; i++) {
     let element = btnclose[i];
-    element.addEventListener("click", () => {
+    element.addEventListener("click", (event) => {
+        event.preventDefault();
         closemodal();
-        location.reload();
+        let tabphotos = localphoto();
+        creategallery(tabphotos);
     });
 };
 
