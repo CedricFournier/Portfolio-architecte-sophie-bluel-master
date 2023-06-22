@@ -1,7 +1,6 @@
-import { addsucess } from "./script.js";
+import { addsucess, authtoken } from "./script.js";
 
-let authtoken = window.sessionStorage.getItem("authtoken");
-let autoken = JSON.parse(authtoken);
+let autoken = authtoken();
 
 export async function importcategories () {
     const importcategories = await fetch("http://localhost:5678/api/categories");
@@ -50,3 +49,4 @@ export async function ajoutphoto () {
         console.log(reponseajout);
     }
 };
+

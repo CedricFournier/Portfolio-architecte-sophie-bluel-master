@@ -1,17 +1,20 @@
 import { ajoutphoto, deleteimg, importcategories, importphoto } from "./data.js";
 import { createfilter, creategallery, createheader, createbtnmodifier, logout, removefilter, createmodal, closemodal, cmodifiergallery, addimg } from "./html.js";
 
+/******************************import-category**********************/
 importcategories();
 
-importphoto();
+function localcategories () {
+    let localcategories = window.localStorage.getItem('localcategories');
+    return JSON.parse(localcategories);
+};
 
-/******************************import-local-category**********************/
-let localcategories = window.localStorage.getItem('localcategories');
-let tabcategories = JSON.parse(localcategories);
+let tabcategories = localcategories();
+
 createfilter(tabcategories);
 
-/******************************import-local-photo**********************/
-
+/******************************import-photo**********************/
+importphoto();
 
 export function localphoto () {
     let localphoto = window.localStorage.getItem('localphoto');
@@ -21,6 +24,13 @@ export function localphoto () {
 let tabphotos = localphoto();
 
 creategallery(tabphotos);
+
+
+
+
+
+
+
 
 /********************************fonction-filtrer************************************/
 const ftous = document.getElementById("filtretous");
@@ -53,11 +63,21 @@ fhresto.addEventListener("click", () => {
     creategallery(tabhresto);
 });
 
-/**************************verification-user******************************/
-let authtoken = window.sessionStorage.getItem('authtoken');
+
+
+
+
+
+/**************************btn-login******************************/
+export function authtoken () {
+    let authtoken = window.sessionStorage.getItem("authtoken");
+    return JSON.parse(authtoken);
+};
+
+let autoken = authtoken();
 const btnlog = document.getElementById("btnlog");
 btnlog.addEventListener("click", () => {
-    if (authtoken !== null) {
+    if (autoken !== null) {
         logout();
     }
     else {
@@ -65,13 +85,18 @@ btnlog.addEventListener("click", () => {
     }
 });
 
-/**************************verification-user******************************/
-if (authtoken !== null) {
+/**************************user-connected******************************/
+if (autoken !== null) {
     createheader()
     createbtnmodifier()
     removefilter()
     createmodal()
-}
+};
+
+
+
+
+
 
 /**************************open-close-modal******************************/
 const btnmodifier2 = document.querySelector(".divmodifier2");
@@ -100,6 +125,31 @@ divmodal.addEventListener("click", (event) => {
     event.stopImmediatePropagation();
 });
 
+
+
+
+
+/**************************gallerie-modal******************************/
+const btnreturn = document.querySelector(".fa-arrow-left-long");
+btnreturn.addEventListener("click", () => {
+    gallerymodal();
+});
+
+function gallerymodal () {
+    const modalbody = document.querySelector(".modalbody");
+    const modaladd = document.querySelector(".modaladd");
+    const leftreturn = document.querySelector(".fa-arrow-left-long");
+    let tabphotos = localphoto();
+    cmodifiergallery(tabphotos);
+    modalbody.style.display = "flex";
+    modaladd.style.display = "none";
+    leftreturn.style.display = "none";
+};
+
+
+
+
+
 /**************************delete-element-modal******************************/
 function clickcorbeille () {
     let imgphoto = document.querySelectorAll(".icon-corbeille");
@@ -116,18 +166,18 @@ function clickcorbeille () {
     });
 };
 
-/**************************ajout-element-modal******************************/
+
+
+
+
+/**************************open-ajout-photo******************************/
 const btnajouter = document.getElementById("btn-ajouter");
 btnajouter.addEventListener("click", (event) => {
     addimg();
     
 });
 
-const btnreturn = document.querySelector(".fa-arrow-left-long");
-btnreturn.addEventListener("click", () => {
-    gallerymodal();
-});
-
+/**************************preview-photo******************************/
 const previewimg = document.getElementById("previewimg");
 const image = document.getElementById("image");
 const labelimg = document.querySelector(".labelimg");
@@ -141,17 +191,7 @@ image.addEventListener("change", () => {
     }
 });
 
-function gallerymodal () {
-    const modalbody = document.querySelector(".modalbody");
-    const modaladd = document.querySelector(".modaladd");
-    const leftreturn = document.querySelector(".fa-arrow-left-long");
-    let tabphotos = localphoto();
-    cmodifiergallery(tabphotos);
-    modalbody.style.display = "flex";
-    modaladd.style.display = "none";
-    leftreturn.style.display = "none";
-};
-
+/**************************verification-champs-vide******************************/
 const title = document.getElementById("title");
 title.addEventListener("input", (event) => {
     verif();
@@ -162,20 +202,22 @@ category.addEventListener("change", (event) => {
    verif();
 });
 
-btnajoutimg.addEventListener("click", (event) => {
-    event.preventDefault();
-    uploadimg();
-});
-
 const msgerrchamps = document.querySelector(".msgerrchamps");
 function verif () {
     if (image.value !== "" && title.value !== "" && category.value !== "") {
         btnajoutimg.style.backgroundColor = "#1D6154";
+        msgerrchamps.style.display = "none";
     }
     else {
         btnajoutimg.style.backgroundColor = "#A7A7A7";
     };
 };
+
+/**************************btn-envoi-photo******************************/
+btnajoutimg.addEventListener("click", (event) => {
+    event.preventDefault();
+    uploadimg();
+});
 
 function uploadimg () {
     if (image.value === "" || title.value === "" || category.value === "") {
@@ -187,6 +229,7 @@ function uploadimg () {
     }
 };
 
+/**************************success-envoi-photo******************************/
 export function addsucess () {
     previewimg.style.display = "none";
     labelimg.style.display = "flex";

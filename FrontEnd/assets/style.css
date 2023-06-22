@@ -406,6 +406,7 @@ button {
 	position: absolute;
 	top: 6px;
 	right: 6px;
+	cursor: pointer;
 }
 
 .fa-trash-can, .fa-arrows-up-down-left-right{
