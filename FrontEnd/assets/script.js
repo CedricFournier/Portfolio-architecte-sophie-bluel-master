@@ -133,6 +133,7 @@ divmodal.addEventListener("click", (event) => {
 const btnreturn = document.querySelector(".fa-arrow-left-long");
 btnreturn.addEventListener("click", () => {
     gallerymodal();
+    addsucess();
 });
 
 function gallerymodal () {
@@ -177,19 +178,57 @@ btnajouter.addEventListener("click", (event) => {
     
 });
 
+
+
+
+
+
+/**************************verification-fichier-type-taille******************************/
+const image = document.getElementById("image");
+image.addEventListener("change", () => {
+    veriftype();
+});
+
+const msgerror = document.querySelector(".msgerror");
+const iconimg = document.querySelector(".fa-image");
+function veriftype () {
+    const [file] = image.files
+    if (file.type === "image/png" || file.type === "image/jpeg") {
+        veriftaille();
+    }
+    else {
+        iconimg.style.display = "none";
+        msgerror.style.display = "block"
+        msgerror.innerText = "Fichier incompatible"
+    }
+};
+
+function veriftaille () {
+    const [file] = image.files
+    if (file.size < "4000000") {
+        previewphoto();
+    }
+    else {
+        iconimg.style.display = "none";
+        msgerror.style.display = "block"
+        msgerror.innerText = "Fichier trop grand"
+    }
+};
+
 /**************************preview-photo******************************/
 const previewimg = document.getElementById("previewimg");
-const image = document.getElementById("image");
 const labelimg = document.querySelector(".labelimg");
-image.addEventListener("change", () => {
+const padd = document.querySelector(".padd");
+function previewphoto () {
     previewimg.style.display = "block";
     const [file] = image.files
     if (file) {
         labelimg.style.display = "none";
+        padd.style.display = "none";
         previewimg.src = URL.createObjectURL(file);
         verif();
     }
-});
+};
 
 /**************************verification-champs-vide******************************/
 const title = document.getElementById("title");
@@ -232,8 +271,11 @@ function uploadimg () {
 /**************************success-envoi-photo******************************/
 export function addsucess () {
     previewimg.style.display = "none";
+    msgerror.style.display = "none"
+    iconimg.style.display = "block";
     labelimg.style.display = "flex";
     title.value = "";
     category.value = "";
     btnajoutimg.style.backgroundColor = "#A7A7A7";
+    msgerrchamps.style.display = "none";
 };

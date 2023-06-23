@@ -112,6 +112,7 @@ export function createmodal () {
                 <form id="formaddimg" class="formimg" enctype="multipart/form-data" method="post">
                     <div class="divajoutphoto">
                         <i class="fa-regular fa-image"></i>
+                        <p class="msgerror"></p>
                         <img src="#" alt="" id="previewimg" >
                         <input type="file" id="image" name="image" accept="image/png, image/jpeg">
                         <label for="image" class="labelimg">+ Ajouter photo</label>    
