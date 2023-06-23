@@ -143,7 +143,7 @@ export function cmodifiergallery (tabphotos) {
     for (i ; i < tabphotos.length; i++) {
         let photo = `
         <figure id="f${i}" class="figure-modal">
-            <button class="icon icon-direction">
+            <button class="icon icon-direction" id="d${i}">
                 <i class="fa-solid fa-arrows-up-down-left-right fa-xs"></i>
             </button>
             <button class="icon icon-corbeille" id="${tabphotos[i].id}">

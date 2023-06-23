@@ -104,6 +104,7 @@ btnmodifier2.addEventListener("click", () => {
     document.querySelector(".aside-modal").style.display = "flex";
     let tabphotos = localphoto();
     cmodifiergallery(tabphotos);
+    iconmouv();
     clickcorbeille();
 });
 
@@ -133,6 +134,8 @@ divmodal.addEventListener("click", (event) => {
 const btnreturn = document.querySelector(".fa-arrow-left-long");
 btnreturn.addEventListener("click", () => {
     gallerymodal();
+    clickcorbeille();
+    iconmouv();
     addsucess();
 });
 
@@ -147,14 +150,32 @@ function gallerymodal () {
     leftreturn.style.display = "none";
 };
 
+function iconmouv () {
+    let figuremodal = document.querySelectorAll(".figure-modal");
+    figuremodal.forEach(element => {
+        element.addEventListener("mouseover", () => {
+            let idfigure = element.getAttribute("id");
+            let btnmouv = idfigure.substring(1);
+            let test = document.getElementById("d" + btnmouv);
+            test.style.display = "block"
+        })  
+        element.addEventListener("mouseout", () => {
+            let idfigure = element.getAttribute("id");
+            let btnmouv = idfigure.substring(1);
+            let test = document.getElementById("d" + btnmouv);
+            test.style.display = "none"
+        }) 
+    })
+};
+
 
 
 
 
 /**************************delete-element-modal******************************/
 function clickcorbeille () {
-    let imgphoto = document.querySelectorAll(".icon-corbeille");
-    imgphoto.forEach(element => {
+    let corbeille = document.querySelectorAll(".icon-corbeille");
+    corbeille.forEach(element => {
         element.addEventListener("click", () => {
             let idimg = element.getAttribute("id");
             let i = 0
@@ -167,7 +188,15 @@ function clickcorbeille () {
     });
 };
 
-
+const btnclear = document.getElementById("btn-clear");
+btnclear.addEventListener("click", () => {
+    let count = 0;
+    for (count ; count < tabphotos.length; count++) {
+        let idimg = tabphotos[count].id;
+        let tabindex = count;
+        console.log(idimg,tabindex)
+    };
+});
 
 
 
