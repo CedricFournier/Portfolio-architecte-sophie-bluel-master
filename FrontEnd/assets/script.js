@@ -174,6 +174,7 @@ function iconmouv () {
 
 /**************************delete-element-modal******************************/
 function clickcorbeille () {
+    let tabphotos = localphoto();
     let corbeille = document.querySelectorAll(".icon-corbeille");
     corbeille.forEach(element => {
         element.addEventListener("click", () => {
@@ -190,13 +191,21 @@ function clickcorbeille () {
 
 const btnclear = document.getElementById("btn-clear");
 btnclear.addEventListener("click", () => {
+    deleteall();
+});
+
+function deleteall () {
+    let tabphotos = localphoto();
     let count = 0;
     for (count ; count < tabphotos.length; count++) {
         let idimg = tabphotos[count].id;
         let tabindex = count;
-        console.log(idimg,tabindex)
+        deleteimg(idimg, tabindex);
     };
-});
+}
+
+
+
 
 
 
