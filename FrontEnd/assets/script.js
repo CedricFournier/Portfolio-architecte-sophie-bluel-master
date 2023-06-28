@@ -39,6 +39,9 @@ const fappart = document.getElementById("categorie2");
 const fhresto = document.getElementById("categorie3");
 
 ftous.addEventListener("click", () => {
+    colorbtnreset()
+    ftous.style.color = "white";
+    ftous.style.backgroundColor = "#1D6154";
 	creategallery(tabphotos);
 });
 
@@ -46,6 +49,9 @@ fobjet.addEventListener("click", () => {
 	let tabobjet = tabphotos.filter(function(itemphoto) {
         return itemphoto.category.name == "Objets";
     })
+    colorbtnreset()
+    fobjet.style.color = "white";
+    fobjet.style.backgroundColor = "#1D6154";
     creategallery(tabobjet);
 });
 
@@ -53,6 +59,9 @@ fappart.addEventListener("click", () => {
 	let tabappart = tabphotos.filter(function(itemphoto) {
         return itemphoto.category.name == "Appartements";
     });
+    colorbtnreset()
+    fappart.style.color = "white";
+    fappart.style.backgroundColor = "#1D6154";
     creategallery(tabappart);
 });
 
@@ -60,9 +69,22 @@ fhresto.addEventListener("click", () => {
 	let tabhresto = tabphotos.filter(function(itemphoto) {
         return itemphoto.category.name == "Hotels & restaurants";
     });
+    colorbtnreset()
+    fhresto.style.color = "white";
+    fhresto.style.backgroundColor = "#1D6154";
     creategallery(tabhresto);
 });
 
+function colorbtnreset () {
+    ftous.style.color = "#1D6154";
+    ftous.style.backgroundColor = "white";
+    fobjet.style.color = "#1D6154";
+    fobjet.style.backgroundColor = "white";
+    fappart.style.color = "#1D6154";
+    fappart.style.backgroundColor = "white";
+    fhresto.style.color = "#1D6154";
+    fhresto.style.backgroundColor = "white";
+};
 
 
 
