@@ -28,9 +28,6 @@ async function authentification (jsonlogin) {
 };
 
 function msgerreur () {
-    const password = document.getElementById("password");
-    let perreur = `
-        <p id="errormsg">Erreur dans l’identifiant ou le mot de passe</p>
-        `
-    password.insertAdjacentHTML("afterend", perreur)
+    const errormsg = document.getElementById("errormsg");
+    errormsg.style.display ="block"
 };

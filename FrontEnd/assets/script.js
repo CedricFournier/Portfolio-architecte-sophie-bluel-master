@@ -100,31 +100,31 @@ if (autoken !== null) {
 
 /**************************open-close-modal******************************/
 const btnmodifier2 = document.querySelector(".divmodifier2");
-btnmodifier2.addEventListener("click", () => {
-    document.querySelector(".aside-modal").style.display = "flex";
-    let tabphotos = localphoto();
-    cmodifiergallery(tabphotos);
-    iconmouv();
-    clickcorbeille();
-});
+    btnmodifier2.addEventListener("click", () => {
+        document.querySelector(".aside-modal").style.display = "flex";
+        let tabphotos = localphoto();
+        cmodifiergallery(tabphotos);
+        iconmouv();
+        clickcorbeille();
+    });
 
 const btnclose = document.querySelectorAll(".closemodal");
-let i = 0;
-for (i ; i < btnclose.length; i++) {
-    let element = btnclose[i];
-    element.addEventListener("click", (event) => {
-        event.preventDefault();
-        closemodal();
-        let tabphotos = localphoto();
-        creategallery(tabphotos);
-    });
-};
+    let i = 0;
+    for (i ; i < btnclose.length; i++) {
+        let element = btnclose[i];
+        element.addEventListener("click", (event) => {
+            event.preventDefault();
+            closemodal();
+            let tabphotos = localphoto();
+            creategallery(tabphotos);
+        });
+    };
 
 const divmodal = document.querySelector(".div-modal");
-divmodal.addEventListener("click", (event) => {
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-});
+    divmodal.addEventListener("click", (event) => {
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+    });
 
 
 
