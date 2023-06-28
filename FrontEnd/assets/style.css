@@ -144,11 +144,6 @@ li:hover {
 	cursor: pointer;
 }
 
-.divfiltre p:hover {
-	background-color: #1D6154;
-	color: white;
-}
-
 #filtretous {
 	background-color: #1D6154;
 	color: white;
